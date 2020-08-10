@@ -1,0 +1,368 @@
+<?php
+// Connecting, selecting database
+$dbconn = pg_connect("host=localhost dbname=MMO user=postgres password=0000")
+    or die('Could not connect: ' . pg_last_error());
+
+// Performing SQL query
+$query = 'SELECT * FROM "Gorev"';
+$result = pg_query($query) or die('Query failed: ' . pg_last_error());
+echo "Arama islemi icin 1 , Ekleme islemi icin 2 , Silme islemi icin 3 ,Guncelleme islemi 4  ";
+ $input = readline("Command: ");
+switch ($input) {
+case 1:
+    echo "Tablo ismi giriniz ";
+	 $tablo = readline("Command: ");
+	 Switch($tablo){
+		 case Hesap :
+		  echo "ID giriniz ";
+		  $a1 = readline("Command: ");
+		  $query = 'SELECT * FROM "Hesap" WHERE "ID"=$a1 ';
+          $result = pg_query($query) or die('Query failed: ' . pg_last_error());
+          while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
+        $a=0;
+        foreach ($line as $col_value) {
+        echo "$col_value\t";
+		if($a==5)
+		{echo "\n";
+		echo "-------------------------------------------";
+		echo "\n";
+		$a=0;}
+		else
+		{$a=$a+1;}	
+    }
+}break;
+
+	 case Karakter :
+		  echo "ID giriniz ";
+		  $a2 = readline("Command: ");
+		  $query = 'SELECT * FROM "Karakter" WHERE "ID"=$a2 ';
+          $result = pg_query($query) or die('Query failed: ' . pg_last_error());
+          while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
+        $a=0;
+        foreach ($line as $col_value) {
+        echo "$col_value\t";
+		if($a==5)
+		{echo "\n";
+		echo "-------------------------------------------";
+		echo "\n";
+		$a=0;}
+		else
+		{$a=$a+1;}	
+    }
+}break;
+
+case Yetenek_agaci :
+		  echo "Karakter ID giriniz ";
+		  $a3 = readline("Command: ");
+		  $query = 'SELECT * FROM "Yetenek_Agaci" WHERE "Karakter_ID"=$a3 ';
+          $result = pg_query($query) or die('Query failed: ' . pg_last_error());
+          while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
+        $a=0;
+        foreach ($line as $col_value) {
+        echo "$col_value\t";
+		if($a==1)
+		{echo "\n";
+		echo "-------------------------------------------";
+		echo "\n";
+		$a=0;}
+		else
+		{$a=$a+1;}	
+    }
+}break;
+
+case Yetenekler :
+		  echo "ID giriniz ";
+		  $a4 = readline("Command: ");
+		  $query = 'SELECT * FROM "Yetenekler" WHERE "ID"=$a4 ';
+          $result = pg_query($query) or die('Query failed: ' . pg_last_error());
+          while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
+        $a=0;
+        foreach ($line as $col_value) {
+        echo "$col_value\t";
+		if($a==6)
+		{echo "\n";
+		echo "-------------------------------------------";
+		echo "\n";
+		$a=0;}
+		else
+		{$a=$a+1;}	
+    }
+}break;
+
+case Envanter :
+		  echo "ID giriniz ";
+		  $a5 = readline("Command: ");
+		  $query = 'SELECT * FROM "Envanter" WHERE "Karakter_ID"=$a5 ';
+          $result = pg_query($query) or die('Query failed: ' . pg_last_error());
+          while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
+        $a=0;
+        foreach ($line as $col_value) {
+        echo "$col_value\t";
+		if($a==2)
+		{echo "\n";
+		echo "-------------------------------------------";
+		echo "\n";
+		$a=0;}
+		else
+		{$a=$a+1;}	
+    }
+}break;
+
+case Gorev :
+		  echo "ID giriniz ";
+		  $a6 = readline("Command: ");
+		  $query = 'SELECT * FROM "Gorev" WHERE "ID"=$a6 ';
+          $result = pg_query($query) or die('Query failed: ' . pg_last_error());
+          while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
+        $a=0;
+        foreach ($line as $col_value) {
+        echo "$col_value\t";
+		if($a==5)
+		{echo "\n";
+		echo "-------------------------------------------";
+		echo "\n";
+		$a=0;}
+		else
+		{$a=$a+1;}	
+    }
+}break;
+
+case Non_Playable_Character :
+		  echo "ID giriniz ";
+		  $a7 = readline("Command: ");
+		  $query = 'SELECT * FROM "Non_Playable_Character" WHERE "ID"=$a7 ';
+          $result = pg_query($query) or die('Query failed: ' . pg_last_error());
+          while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
+        $a=0;
+        foreach ($line as $col_value) {
+        echo "$col_value\t";
+		if($a==5)
+		{echo "\n";
+		echo "-------------------------------------------";
+		echo "\n";
+		$a=0;}
+		else
+		{$a=$a+1;}	
+    }
+}break;
+
+case Klan :
+		  echo "ID giriniz ";
+		  $a8 = readline("Command: ");
+		  $query = 'SELECT * FROM "Klan" WHERE "ID"=$a8 ';
+          $result = pg_query($query) or die('Query failed: ' . pg_last_error());
+          while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
+        $a=0;
+        foreach ($line as $col_value) {
+        echo "$col_value\t";
+		if($a==2)
+		{echo "\n";
+		echo "-------------------------------------------";
+		echo "\n";
+		$a=0;}
+		else
+		{$a=$a+1;}	
+    }
+}break;
+
+case Klan_uyeleri :
+		  echo "Karakter_ID giriniz ";
+		  $a9 = readline("Command: ");
+		  $query = 'SELECT * FROM "Klan_uyeleri" WHERE "Karakter_ID"=$a9 ';
+          $result = pg_query($query) or die('Query failed: ' . pg_last_error());
+          while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
+        $a=0;
+        foreach ($line as $col_value) {
+        echo "$col_value\t";
+		if($a==1)
+		{echo "\n";
+		echo "-------------------------------------------";
+		echo "\n";
+		$a=0;}
+		else
+		{$a=$a+1;}	
+    }
+}break;
+
+case Puan_Tablosu :
+		  echo "Karakter_ID giriniz ";
+		  $a10 = readline("Command: ");
+		  $query = 'SELECT * FROM "Puan_Tablosu" WHERE "Karakter_ID"=$a10 ';
+          $result = pg_query($query) or die('Query failed: ' . pg_last_error());
+          while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
+        $a=0;
+        foreach ($line as $col_value) {
+        echo "$col_value\t";
+		if($a==3)
+		{echo "\n";
+		echo "-------------------------------------------";
+		echo "\n";
+		$a=0;}
+		else
+		{$a=$a+1;}	
+    }
+}break;
+
+case Nesneler :
+		  echo "ID giriniz ";
+		  $a11 = readline("Command: ");
+		  $query = 'SELECT * FROM "Nesneler" WHERE "ID"=$a11 ';
+          $result = pg_query($query) or die('Query failed: ' . pg_last_error());
+          while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
+        $a=0;
+        foreach ($line as $col_value) {
+        echo "$col_value\t";
+		if($a==2)
+		{echo "\n";
+		echo "-------------------------------------------";
+		echo "\n";
+		$a=0;}
+		else
+		{$a=$a+1;}	
+    }
+}break;
+
+case Silahlar :
+		  echo "ID giriniz ";
+		  $a12 = readline("Command: ");
+		  $query = 'SELECT * FROM "Silahlar" WHERE "ID"=$a12 ';
+          $result = pg_query($query) or die('Query failed: ' . pg_last_error());
+          while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
+        $a=0;
+        foreach ($line as $col_value) {
+        echo "$col_value\t";
+		if($a==5)
+		{echo "\n";
+		echo "-------------------------------------------";
+		echo "\n";
+		$a=0;}
+		else
+		{$a=$a+1;}	
+    }
+}break;
+
+case Zirhlar :
+		  echo "ID giriniz ";
+		  $a13 = readline("Command: ");
+		  $query = 'SELECT * FROM "Zirhlar" WHERE "ID"=$a13 ';
+          $result = pg_query($query) or die('Query failed: ' . pg_last_error());
+          while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
+        $a=0;
+        foreach ($line as $col_value) {
+        echo "$col_value\t";
+		if($a==5)
+		{echo "\n";
+		echo "-------------------------------------------";
+		echo "\n";
+		$a=0;}
+		else
+		{$a=$a+1;}	
+    }
+}break;
+
+case Sarfmalzemeleri :
+		  echo "ID giriniz ";
+		  $a14 = readline("Command: ");
+		  $query = 'SELECT * FROM "Sarfmalzemeleri" WHERE "ID"=$a14 ';
+          $result = pg_query($query) or die('Query failed: ' . pg_last_error());
+          while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
+        $a=0;
+        foreach ($line as $col_value) {
+        echo "$col_value\t";
+		if($a==3)
+		{echo "\n";
+		echo "-------------------------------------------";
+		echo "\n";
+		$a=0;}
+		else
+		{$a=$a+1;}	
+    }
+}break;
+
+
+case Uretim :
+		  echo "ID giriniz ";
+		  $a15 = readline("Command: ");
+		  $query = 'SELECT * FROM "Uretim" WHERE "ID"=$a15 ';
+          $result = pg_query($query) or die('Query failed: ' . pg_last_error());
+          while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
+        $a=0;
+        foreach ($line as $col_value) {
+        echo "$col_value\t";
+		if($a==3)
+		{echo "\n";
+		echo "-------------------------------------------";
+		echo "\n";
+		$a=0;}
+		else
+		{$a=$a+1;}	
+    }
+}break;
+
+
+case Odul :
+		  echo "ID giriniz ";
+		  $a16 = readline("Command: ");
+		  $query = 'SELECT * FROM "Odul" WHERE "ID"=$a16 ';
+          $result = pg_query($query) or die('Query failed: ' . pg_last_error());
+          while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
+        $a=0;
+        foreach ($line as $col_value) {
+        echo "$col_value\t";
+		if($a==3)
+		{echo "\n";
+		echo "-------------------------------------------";
+		echo "\n";
+		$a=0;}
+		else
+		{$a=$a+1;}	
+    }
+}break;
+	 }
+    break;
+case 2:
+    echo "Tablo ismi giriniz ";
+	 $tablo2 = readline("Command: ");
+    break;
+case 3:
+    echo "Tablo ismi giriniz ";
+	 $tablo3 = readline("Command: ");
+    break;
+case 4:
+    echo "Tablo ismi giriniz ";
+     $tablo4 = readline("Command: ");
+    break;
+default:
+    echo "Yeniden";
+	break;
+}
+// Printing results in HTML
+echo "TABLO\n";
+while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
+ $a=0;
+    foreach ($line as $col_value) {
+        echo "$col_value\t";
+		if($a==5)
+		{
+		echo "\n";
+		echo "-------------------------------------------";
+		echo "\n";
+		$a=0;
+		}
+		else
+		{
+		$a=$a+1;
+		}	
+		
+    }
+  
+}
+
+
+
+// Free resultset
+pg_free_result($result);
+
+// Closing connection
+pg_close($dbconn);
+?>
