@@ -480,27 +480,7 @@ case 4:
 default:
     echo "Yeniden";
 	break;
-}
-// Printing results in HTML
-echo "TABLO\n";
-while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
- $a=0;
-    foreach ($line as $col_value) {
-        echo "$col_value\t";
-		if($a==5)
-		{
-		echo "\n";
-		echo "-------------------------------------------";
-		echo "\n";
-		$a=0;
-		}
-		else
-		{
-		$a=$a+1;
-		}	
-		
-    }
-  
+}  
 }
 
 
