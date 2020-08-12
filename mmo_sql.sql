@@ -1,3 +1,9 @@
+CREATE DATABASE "MMO_odev"
+    WITH 
+    OWNER = postgres
+    ENCODING = 'UTF8'
+    CONNECTION LIMIT = -1;
+
 CREATE TABLE "Yetenekler" (
   "ID" INT  ,
 	"Ad" VARCHAR(50),
@@ -135,129 +141,3 @@ CREATE TABLE "Odul"(
 "Seviye" INT,
 CONSTRAINT "OIDPK" PRIMARY KEY("ID")
 ) 
-/*--------------------------------------------------------------------------------------------------------------------------------------------*/
-
-1.FONKSİYON-----------------------------------------------------------------------------------
-
-CREATE FUNCTION yeteneksahipleri (aranan VARCHAR(20) )
-RETURNS TABLE(Karakteradi VARCHAR(50),yetenekadi VARCHAR(50),turu VARCHAR(50) )
-AS $$
-DECLARE 
-	Yetid int;
-BEGIN
-	SELECT "ID" FROM Yetenekler WHERE "Tur"="aranan" INTO Yetid;
-	RETURN QUERY SELECT * FROM Karakter INNER JOIN Yetenek_Agaci ON Karakter.ID=Yetenek_Agaci.ID 
-	WHERE "Yetenek_Agaci"."1_Yetenek_ID"=Yetid 
-	OR "Yetenek_Agaci"."2_Yetenek_ID"=Yetid 
-	OR "Yetenek_Agaci"."3_Yetenek_ID"=Yetid 
-	OR "Yetenek_Agaci"."4_Yetenek_ID"=Yetid 
-	OR "Yetenek_Agaci"."5_Yetenek_ID"=Yetid;
-END; $$
-LANGUAGE 'plpgsql';
-
-
-
-2.FONKSİYON-----------------------------------------------------------------------------------
-
- CREATE FUNCTION Siralama ()
-RETURNS TABLE(Karakteradipvp VARCHAR(50),pvp int )
-AS $$
-
-BEGIN
-	RETURN QUERY SELECT "ID","PVP_puani " FROM "Puan_Tablosu" ORDER BY  "PVP_puani" DESC LIMIT 10;
-	
-END; $$
-LANGUAGE 'plpgsql';
-
-3.FONKSİYON-----------------------------------------------------------------------------------
-
-CREATE FUNCTION ticaretKlaniuyeleri ()
-RETURNS TABLE(Karakteradi VARCHAR(50) )
-AS $$
-DECLARE 
-	idd int;
-BEGIN
-	SELECT "ID" FROM "Klan" WHERE "Tur"="ticaret" INTO idd;
-	RETURN QUERY SELECT "Ad" FROM Karakter INNER JOIN "Klan_uyeleri" ON Karakter.ID=Klan_uyeleri.ID 
-	WHERE "Klan_ID"=idd;
-END; $$
-LANGUAGE 'plpgsql';
-
-4.FONKSİYON-----------------------------------------------------------------------------------
-
-CREATE FUNCTION developer ()
-RETURNS TEXT
-AS $$
-DECLARE
-    sonuc TEXT:='Islem tamamlandi';
-    BEGIN
-    UPDATE "Karakter" SET "Can"=999 WHERE "ID"=(SELECT "Karakter_ID" FROM "Hesap" WHERE "Karakter_ID"="Developer");
-    RETURN TEXT;
-   END; $$
-LANGUAGE 'plpgsql';
-
-
-
-
-1.TRİGGER----------------------------------------------------------------------------------------
-
-CREATE OR REPLACE FUNCTION "yetenekdegisikligi"()
-RETURNS TRIGGER 
-AS
-$$
-BEGIN
-    IF NEW."Ad" <> OLD."Ad" THEN
-        INSERT INTO "yetenekdegisimi"("Ad", "Tur", "Mana", "Yenilenme_Suresi(Sn)","Hasar","Bonus")
-        VALUES(NEW."Ad", NEW."Tur", NEW."Mana", NEW."Yenilenme_Suresi(Sn)",NEW."Hasar",NEW."Bonus");
-    END IF;
-
-    RETURN NEW;
-END;
-$$
-LANGUAGE "plpgsql";
-
-CREATE TRIGGER "yetenekdegisikliginde"
-BEFORE UPDATE ON ""Yetenekler""
-FOR EACH ROW
-EXECUTE PROCEDURE "yetenekdegisikligi"();
-
-2.TRİGGER----------------------------------------------------------------------------------------
-
-
-CREATE OR REPLACE FUNCTION "sifreekleme"()
-RETURNS TRIGGER 
-AS
-$$
-DECLARE ysifre VARCHAR(500 );
-BEGIN
- ysifre= SELECT MD5(NEW."Sifre");
-       INSERT INTO "Hesap"("Sifre") VALUES (ysifre);
-       END;
-$$
- LANGUAGE "plpgsql";
- 
- 
-CREATE TRIGGER "sifreeklemesi"
-BEFORE UPDATE ON "Hesap"
-FOR EACH ROW
-EXECUTE PROCEDURE "sifreekleme"();
-
- 3.TRİGGER----------------------------------------------------------------------------------------
- CREATE OR REPLACE FUNCTION "Sezondegisimi"(ysezon INT)
-RETURNS TRIGGER 
-AS
-$$
-BEGIN
-    UPDATE "Puan_Tablosu" SET "Sezon"=ysezon;
-    UPDATE "Puan_Tablosu" SET "PVP_puani "=0,"PVE_puani "=0 WHERE OLD.Sezon <> NEW.Sezon;
-
-   
-END;
-$$
-LANGUAGE "plpgsql";
-
-CREATE TRIGGER "Sezondegisimigerceklesmesinde"
-AFTER UPDATE ON "Puan_Tablosu"
-FOR EACH ROW
-EXECUTE PROCEDURE "Sezondegisimi"();
- 
