@@ -4,8 +4,7 @@ $dbconn = pg_connect("host=localhost dbname=MMO user=postgres password=0000")
     or die('Could not connect: ' . pg_last_error());
 
 // Performing SQL query
-$query = 'SELECT * FROM "Gorev"';
-$result = pg_query($query) or die('Query failed: ' . pg_last_error());
+
 echo "Arama islemi icin 1 , Ekleme islemi icin 2 , Silme islemi icin 3 ,Guncelleme islemi 4  ";
  $input = readline("Command: ");
 switch ($input) {
@@ -13,10 +12,10 @@ case 1:
     echo "Tablo ismi giriniz ";
 	 $tablo = readline("Command: ");
 	 Switch($tablo){
-		 case Hesap :
+		 case "Hesap" :
 		  echo "ID giriniz ";
 		  $a1 = readline("Command: ");
-		  $query = 'SELECT * FROM "Hesap" WHERE "ID"=$a1 ';
+		  $query = 'SELECT * FROM Hesap WHERE ID='.$a1 ;
           $result = pg_query($query) or die('Query failed: ' . pg_last_error());
           while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
         $a=0;
@@ -35,7 +34,7 @@ case 1:
 	 case Karakter :
 		  echo "ID giriniz ";
 		  $a2 = readline("Command: ");
-		  $query = 'SELECT * FROM "Karakter" WHERE "ID"=$a2 ';
+		  $query = 'SELECT * FROM Karakter WHERE ID'=.$a2 ;
           $result = pg_query($query) or die('Query failed: ' . pg_last_error());
           while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
         $a=0;
@@ -54,7 +53,7 @@ case 1:
 case Yetenek_agaci :
 		  echo "Karakter ID giriniz ";
 		  $a3 = readline("Command: ");
-		  $query = 'SELECT * FROM "Yetenek_Agaci" WHERE "Karakter_ID"=$a3 ';
+		  $query = 'SELECT * FROM Yetenek_Agaci WHERE Karakter_ID'=.$a3 ;
           $result = pg_query($query) or die('Query failed: ' . pg_last_error());
           while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
         $a=0;
@@ -73,7 +72,7 @@ case Yetenek_agaci :
 case Yetenekler :
 		  echo "ID giriniz ";
 		  $a4 = readline("Command: ");
-		  $query = 'SELECT * FROM "Yetenekler" WHERE "ID"=$a4 ';
+		  $query = 'SELECT * FROM Yetenekler WHERE ID'=.$a4;
           $result = pg_query($query) or die('Query failed: ' . pg_last_error());
           while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
         $a=0;
@@ -92,7 +91,7 @@ case Yetenekler :
 case Envanter :
 		  echo "ID giriniz ";
 		  $a5 = readline("Command: ");
-		  $query = 'SELECT * FROM "Envanter" WHERE "Karakter_ID"=$a5 ';
+		  $query = 'SELECT * FROM Envanter WHERE Karakter_I'=.$a5;
           $result = pg_query($query) or die('Query failed: ' . pg_last_error());
           while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
         $a=0;
@@ -111,7 +110,7 @@ case Envanter :
 case Gorev :
 		  echo "ID giriniz ";
 		  $a6 = readline("Command: ");
-		  $query = 'SELECT * FROM "Gorev" WHERE "ID"=$a6 ';
+		  $query = 'SELECT * FROM Gorev WHERE ID'=.$a6;
           $result = pg_query($query) or die('Query failed: ' . pg_last_error());
           while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
         $a=0;
@@ -130,7 +129,7 @@ case Gorev :
 case Non_Playable_Character :
 		  echo "ID giriniz ";
 		  $a7 = readline("Command: ");
-		  $query = 'SELECT * FROM "Non_Playable_Character" WHERE "ID"=$a7 ';
+		  $query = 'SELECT * FROM Non_Playable_Character WHERE ID'=.$a7 ;
           $result = pg_query($query) or die('Query failed: ' . pg_last_error());
           while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
         $a=0;
@@ -149,7 +148,7 @@ case Non_Playable_Character :
 case Klan :
 		  echo "ID giriniz ";
 		  $a8 = readline("Command: ");
-		  $query = 'SELECT * FROM "Klan" WHERE "ID"=$a8 ';
+		  $query = 'SELECT * FROM Klan WHERE ID'=.$a8;
           $result = pg_query($query) or die('Query failed: ' . pg_last_error());
           while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
         $a=0;
@@ -168,7 +167,7 @@ case Klan :
 case Klan_uyeleri :
 		  echo "Karakter_ID giriniz ";
 		  $a9 = readline("Command: ");
-		  $query = 'SELECT * FROM "Klan_uyeleri" WHERE "Karakter_ID"=$a9 ';
+		  $query = 'SELECT * FROM Klan_uyeleri WHERE Karakter_ID'=.$a9;
           $result = pg_query($query) or die('Query failed: ' . pg_last_error());
           while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
         $a=0;
@@ -187,7 +186,7 @@ case Klan_uyeleri :
 case Puan_Tablosu :
 		  echo "Karakter_ID giriniz ";
 		  $a10 = readline("Command: ");
-		  $query = 'SELECT * FROM "Puan_Tablosu" WHERE "Karakter_ID"=$a10 ';
+		  $query = 'SELECT * FROM Puan_Tablosu WHERE Karakter_ID'=.$a10;
           $result = pg_query($query) or die('Query failed: ' . pg_last_error());
           while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
         $a=0;
@@ -206,7 +205,7 @@ case Puan_Tablosu :
 case Nesneler :
 		  echo "ID giriniz ";
 		  $a11 = readline("Command: ");
-		  $query = 'SELECT * FROM "Nesneler" WHERE "ID"=$a11 ';
+		  $query = 'SELECT * FROM Nesneler WHERE ID'=.$a11;
           $result = pg_query($query) or die('Query failed: ' . pg_last_error());
           while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
         $a=0;
@@ -225,7 +224,7 @@ case Nesneler :
 case Silahlar :
 		  echo "ID giriniz ";
 		  $a12 = readline("Command: ");
-		  $query = 'SELECT * FROM "Silahlar" WHERE "ID"=$a12 ';
+		  $query = 'SELECT * FROM Silahlar WHERE ID'=.$a12;
           $result = pg_query($query) or die('Query failed: ' . pg_last_error());
           while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
         $a=0;
@@ -244,7 +243,7 @@ case Silahlar :
 case Zirhlar :
 		  echo "ID giriniz ";
 		  $a13 = readline("Command: ");
-		  $query = 'SELECT * FROM "Zirhlar" WHERE "ID"=$a13 ';
+		  $query = 'SELECT * FROM Zirhlar WHERE ID'=.$a13;
           $result = pg_query($query) or die('Query failed: ' . pg_last_error());
           while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
         $a=0;
@@ -263,7 +262,7 @@ case Zirhlar :
 case Sarfmalzemeleri :
 		  echo "ID giriniz ";
 		  $a14 = readline("Command: ");
-		  $query = 'SELECT * FROM "Sarfmalzemeleri" WHERE "ID"=$a14 ';
+		  $query = 'SELECT * FROM Sarfmalzemeleri WHERE ID'=.$a14;
           $result = pg_query($query) or die('Query failed: ' . pg_last_error());
           while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
         $a=0;
@@ -283,7 +282,7 @@ case Sarfmalzemeleri :
 case Uretim :
 		  echo "ID giriniz ";
 		  $a15 = readline("Command: ");
-		  $query = 'SELECT * FROM "Uretim" WHERE "ID"=$a15 ';
+		  $query = 'SELECT * FROM Uretim WHERE ID'=.$a15 ;
           $result = pg_query($query) or die('Query failed: ' . pg_last_error());
           while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
         $a=0;
@@ -303,7 +302,7 @@ case Uretim :
 case Odul :
 		  echo "ID giriniz ";
 		  $a16 = readline("Command: ");
-		  $query = 'SELECT * FROM "Odul" WHERE "ID"=$a16 ';
+		  $query = 'SELECT * FROM Odul WHERE ID'=.$a16;
           $result = pg_query($query) or die('Query failed: ' . pg_last_error());
           while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
         $a=0;
@@ -320,9 +319,155 @@ case Odul :
 }break;
 	 }
     break;
+    /*--------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 case 2:
-    echo "Tablo ismi giriniz ";
+     echo "Tablo ismi giriniz ";
 	 $tablo2 = readline("Command: ");
+
+	 Switch($tablo2){
+		 case Hesap :
+		  echo "ID giriniz ";
+		  $e1 = readline("Command: ");
+		  echo "Ad giriniz ";
+		  $e2 = readline("Command: ");
+		  echo "Email giriniz ";
+		  $e3 = readline("Command: ");
+		  echo "sifre giriniz ";
+		  $e4 = readline("Command: ");
+		  echo "Tur giriniz ";
+		  $e5 = readline("Command: ");
+		  echo "Karakter_ID giriniz ";
+		  $e6 = readline("Command: ");
+		$query ="INSERT INTO Hesap VALUES ('$e1','$e3','$e4','$e2','$e5','$e6')";
+		$result = pg_query($query); break;
+
+	 case Karakter :
+		  echo "ID giriniz ";
+		  $e1 = readline("Command: ");
+		  echo "Ad giriniz ";
+		  $e2 = readline("Command: ");
+		  echo "Seviye giriniz ";
+		  $e3 = readline("Command: ");
+		  echo "Sinif giriniz ";
+		  $e4 = readline("Command: ");
+		  echo "Can giriniz ";
+		  $e5 = readline("Command: ");
+		  echo "mana giriniz ";
+		  $e6 = readline("Command: ");
+		$query ="INSERT INTO Hesap Karakter ('$e1','$e2','$e3','$e4','$e5','$e6')";
+		$result = pg_query($query); break;
+
+case Yetenek_agaci :
+		  echo "Karakter_ID giriniz ";
+		  $e1 = readline("Command: ");
+		  echo "1.yetenek giriniz ";
+		  $e2 = readline("Command: ");
+		  echo "2.yetenek giriniz ";
+		  $e3 = readline("Command: ");
+		  echo "3.yetenek";
+		  $e4 = readline("Command: ");
+		  echo "4.yetenek";
+		  $e5 = readline("Command: ");
+		  echo "5.yetenek";
+		  $e6 = readline("Command: ");
+		$query ="INSERT INTO Hesap Yetenek_agaci ('$e1','$e2','$e3','$e4','$e5','$e6')";
+		$result = pg_query($query); 
+    break;
+
+case Yetenekler :
+		  echo "ID giriniz ";
+		  $e1 = readline("Command: ");
+		  echo "Ad giriniz ";
+		  $e2 = readline("Command: ");
+		  echo "Tur giriniz ";
+		  $e3 = readline("Command: ");
+		  echo "Mana giriniz";
+		  $e4 = readline("Command: ");
+		  echo "Yenilenme_Suresi Sn giriniz";
+		  $e5 = readline("Command: ");
+		  echo "Hasar giriniz";
+		  $e6 = readline("Command: ");
+		  echo "Hasar giriniz";
+		  $e7 = readline("Command: ");
+		$query ="INSERT INTO Hesap Yetenek_agaci ('$e1','$e2','$e3','$e4','$e5','$e6','$e7')";
+		$result = pg_query($query); break;
+
+case Envanter :
+		  echo "Karakter_ID giriniz ";
+		  $e1 = readline("Command: ");
+		  echo "Nesne_ID giriniz ";
+		  $e2 = readline("Command: ");
+		  echo "Miktar giriniz ";
+		  $e3 = readline("Command: ");
+		$query ="INSERT INTO Hesap Yetenek_agaci ('$e1','$e2','$e3')";
+		$result = pg_query($query); break;;
+
+case Gorev :
+		  $e1 = readline("Command: ");
+		  echo "Ad giriniz ";
+		  $e2 = readline("Command: ");
+		  echo "Tur giriniz ";
+		  $e3 = readline("Command: ");
+		  echo "Mana giriniz";
+		  $e4 = readline("Command: ");
+		  echo "Yenilenme_Suresi Sn giriniz";
+		  $e5 = readline("Command: ");
+		  echo "Hasar giriniz";
+		  $e6 = readline("Command: ");
+		  echo "Hasar giriniz";
+		  $e7 = readline("Command: ");
+		$query ="INSERT INTO Hesap Yetenek_agaci ('$e1','$e2','$e3','$e4','$e5','$e6','$e7')";
+		$result = pg_query($query); break;
+
+case Non_Playable_Character :
+		  echo "ID giriniz ";
+		  $e1 = readline("Command: ");
+		  echo "Ad giriniz ";
+		  $e2 = readline("Command: ");
+		  echo "Seviye giriniz ";
+		  $e3 = readline("Command: ");
+		  echo "Sinif giriniz ";
+		  $e4 = readline("Command: ");
+		  echo "Can giriniz ";
+		  $e5 = readline("Command: ");
+		  echo "mana giriniz ";
+		  $e6 = readline("Command: ");
+		  echo "Tur giriniz ";
+		  $e7 = readline("Command: ");
+		  echo "Gorev_ID giriniz ";
+		  $e8 = readline("Command: ");
+		$query ="INSERT INTO Hesap Karakter ('$e1','$e2','$e3','$e4','$e5','$e6','$e7','$e8')";
+		$result = pg_query($query); break;
+
+case Klan :
+		  echo "ID giriniz ";
+		  $e1 = readline("Command: ");
+		  echo "ad giriniz ";
+		  $e2 = readline("Command: ");
+		  echo "Tur giriniz ";
+		  $e3 = readline("Command: ");
+		$query ="INSERT INTO Hesap Karakter ('$e1','$e2','$e3')";
+		$result = pg_query($query); break;
+
+case Klan_uyeleri :
+		  echo "Karakter_ID giriniz ";
+		  $e1 = readline("Command: ");
+		  echo "Klan_ID giriniz ";
+		  $e2 = readline("Command: ");
+		  $query ="INSERT INTO Hesap Karakter ('$e1','$e2')";
+		  $result = pg_query($query); break;
+
+case Puan_Tablosu :
+		  echo "Karakter_ID giriniz ";
+		  $e1 = readline("Command: ");
+		  echo "Sezon giriniz ";
+		  $e2 = readline("Command: ");
+		  echo "PVP puani giriniz ";
+		  $e3 = readline("Command: ");
+		  echo "PVE puani giriniz ";
+		  $e4 = readline("Command: ");
+		  $query ="INSERT INTO Hesap Karakter ('$e1','$e2','$e3','$e4')";
+		  $result = pg_query($query); break;
     break;
 case 3:
     echo "Tablo ismi giriniz ";
