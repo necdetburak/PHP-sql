@@ -137,6 +137,8 @@ CONSTRAINT "OIDPK" PRIMARY KEY("ID")
 ) 
 /*--------------------------------------------------------------------------------------------------------------------------------------------*/
 
+1.FONKSİYON-----------------------------------------------------------------------------------
+
 CREATE FUNCTION yeteneksahipleri (aranan VARCHAR(20) )
 RETURNS TABLE(Karakteradi VARCHAR(50),yetenekadi VARCHAR(50),turu VARCHAR(50) )
 AS $$
@@ -152,7 +154,52 @@ BEGIN
 	OR "Yetenek_Agaci"."5_Yetenek_ID"=Yetid;
 END; $$
 LANGUAGE 'plpgsql';
-/*--------------------------------------------------------------------------------------------------------------------------------------------*/
+
+
+
+2.FONKSİYON-----------------------------------------------------------------------------------
+
+ CREATE FUNCTION Siralama ()
+RETURNS TABLE(Karakteradipvp VARCHAR(50),pvp int )
+AS $$
+
+BEGIN
+	RETURN QUERY SELECT "ID","PVP_puani " FROM "Puan_Tablosu" ORDER BY  "PVP_puani" DESC LIMIT 10;
+	
+END; $$
+LANGUAGE 'plpgsql';
+
+3.FONKSİYON-----------------------------------------------------------------------------------
+
+CREATE FUNCTION ticaretKlaniuyeleri ()
+RETURNS TABLE(Karakteradi VARCHAR(50) )
+AS $$
+DECLARE 
+	idd int;
+BEGIN
+	SELECT "ID" FROM "Klan" WHERE "Tur"="ticaret" INTO idd;
+	RETURN QUERY SELECT "Ad" FROM Karakter INNER JOIN "Klan_uyeleri" ON Karakter.ID=Klan_uyeleri.ID 
+	WHERE "Klan_ID"=idd;
+END; $$
+LANGUAGE 'plpgsql';
+
+4.FONKSİYON-----------------------------------------------------------------------------------
+
+CREATE FUNCTION developer ()
+RETURNS TEXT
+AS $$
+DECLARE
+    sonuc TEXT:='Islem tamamlandi';
+    BEGIN
+    UPDATE "Karakter" SET "Can"=999 WHERE "ID"=(SELECT "Karakter_ID" FROM "Hesap" WHERE "Karakter_ID"="Developer");
+    RETURN TEXT;
+   END; $$
+LANGUAGE 'plpgsql';
+
+
+
+
+1.TRİGGER----------------------------------------------------------------------------------------
 
 CREATE OR REPLACE FUNCTION "yetenekdegisikligi"()
 RETURNS TRIGGER 
@@ -173,7 +220,8 @@ CREATE TRIGGER "yetenekdegisikliginde"
 BEFORE UPDATE ON ""Yetenekler""
 FOR EACH ROW
 EXECUTE PROCEDURE "yetenekdegisikligi"();
-/*--------------------------------------------------------------------------------------------------------------------------------------------*/
+
+2.TRİGGER----------------------------------------------------------------------------------------
 
 
 CREATE OR REPLACE FUNCTION "sifreekleme"()
@@ -193,64 +241,23 @@ CREATE TRIGGER "sifreeklemesi"
 BEFORE UPDATE ON "Hesap"
 FOR EACH ROW
 EXECUTE PROCEDURE "sifreekleme"();
- 
- /*--------------------------------------------------------------------------------------------------------------------------------------------*/
- 
-CREATE OR REPLACE FUNCTION ""()
-RETURNS TRIGGER 
-AS
-$$
 
-$$
- LANGUAGE "plpgsql";
- /*--------------------------------------------------------------------------------------------------------------------------------------------*/
- CREATE FUNCTION Siralama ()
-RETURNS TABLE(Karakteradipvp VARCHAR(50),pvp INT )
-AS $$
-
-BEGIN
-	RETURN QUERY SELECT "ID","PVP_puani " FROM "Puan_Tablosu" ORDER BY  "PVP_puani" DESC LIMIT 10;
-	
-END; $$
-LANGUAGE 'plpgsql';
-/*--------------------------------------------------------------------------------------------------------------------------------------------*/
-CREATE FUNCTION ticaretKlaniuyeleri ()
-RETURNS TABLE(Karakteradi VARCHAR(50) )
-AS $$
-DECLARE 
-	idd int;
-BEGIN
-	SELECT "ID" FROM "Klan" WHERE "Tur"="ticaret" INTO idd;
-	RETURN QUERY SELECT "Ad" FROM Karakter INNER JOIN "Klan_uyeleri" ON Karakter.ID=Klan_uyeleri.ID 
-	WHERE "Klan_ID"=idd;
-END; $$
-LANGUAGE 'plpgsql';
-/*--------------------------------------------------------------------------------------------------------------------------------------------*/
-CREATE FUNCTION developer ()
-RETURNS TEXT
-AS $$
-DECLARE
-    sonuc TEXT:='Islem tamamlandi';
-    BEGIN
-    UPDATE "Karakter" SET "Can"=999 WHERE "ID"=(SELECT "Karakter_ID" FROM "Hesap" WHERE "Karakter_ID"="Developer");
-    RETURN TEXT;
-   END; $$
-LANGUAGE 'plpgsql';
- /*-------------------------------------------------------------------------------------------*/
- CREATE OR REPLACE FUNCTION "ciftyetenek"()
+ 3.TRİGGER----------------------------------------------------------------------------------------
+ CREATE OR REPLACE FUNCTION "Sezondegisimi"(ysezon INT)
 RETURNS TRIGGER 
 AS
 $$
 BEGIN
-   LOOP
-   
+    UPDATE "Puan_Tablosu" SET "Sezon"=ysezon;
+    UPDATE "Puan_Tablosu" SET "PVP_puani "=0,"PVE_puani "=0 WHERE OLD.Sezon <> NEW.Sezon;
+
    
 END;
 $$
 LANGUAGE "plpgsql";
 
-CREATE TRIGGER "yetenekayarlma"
-AFTER DELETE ON "Yetenek_Agaci"
+CREATE TRIGGER "Sezondegisimigerceklesmesinde"
+AFTER UPDATE ON "Puan_Tablosu"
 FOR EACH ROW
-EXECUTE PROCEDURE "ciftyetenek"();
+EXECUTE PROCEDURE "Sezondegisimi"();
  
