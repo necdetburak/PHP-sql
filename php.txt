@@ -91,7 +91,7 @@ case Yetenekler :
 case Envanter :
 		  echo "ID giriniz ";
 		  $a5 = readline("Command: ");
-		  $query = 'SELECT * FROM Envanter WHERE Karakter_I'=.$a5;
+		  $query = 'SELECT * FROM Envanter WHERE Karakter_ID'=.$a5;
           $result = pg_query($query) or die('Query failed: ' . pg_last_error());
           while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
         $a=0;
@@ -318,10 +318,10 @@ case Odul :
     }
 }break;
 	 }
-    break;
-    /*--------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+    break;/*--case1--*/
+	/*--------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 case 2:
-     echo "Tablo ismi giriniz ";
+    echo "Tablo ismi giriniz ";
 	 $tablo2 = readline("Command: ");
 
 	 Switch($tablo2){
@@ -468,22 +468,309 @@ case Puan_Tablosu :
 		  $e4 = readline("Command: ");
 		  $query ="INSERT INTO Hesap Karakter ('$e1','$e2','$e3','$e4')";
 		  $result = pg_query($query); break;
-    break;
+		  
+case Nesneler :
+		echo "ID giriniz ";
+		$e1 = readline("Command: ");
+		echo "Ad giriniz ";
+		$e2 = readline("Command: ");
+		echo "Aciklama giriniz ";
+		$e3 = readline("Command: ");
+		$query ="INSERT INTO Hesap Nesneler ('$e1','$e2','$e3')";
+		  $result = pg_query($query); break;
+
+case Silahlar :
+		echo "ID giriniz ";
+		$e1 = readline("Command: ");
+		echo "Seviye giriniz ";
+		$e2 = readline("Command: ");
+		echo "Hasar tipi giriniz ";
+		$e3 = readline("Command: ");
+		echo "Hasar giriniz ";
+		$e4 = readline("Command: ");
+		  $query ="INSERT INTO Hesap Silahlar ('$e1','$e2','$e3','$e4')";
+		  $result = pg_query($query); break;
+
+case Zirhlar :
+	echo "ID giriniz ";
+		$e1 = readline("Command: ");
+		echo "Seviye giriniz ";
+		$e2 = readline("Command: ");
+		echo "Zirh tipi giriniz ";
+		$e3 = readline("Command: ");
+		echo "Zirh degeri giriniz ";
+		$e4 = readline("Command: ");
+		  $query ="INSERT INTO Hesap Zirhlar ('$e1','$e2','$e3','$e4')";
+		  $result = pg_query($query); break;
+
+case Sarfmalzemeleri :
+		echo "ID giriniz ";
+		$e1 = readline("Command: ");
+		echo "Etkiyi giriniz ";
+		$e2 = readline("Command: ");
+		  $query ="INSERT INTO Hesap Sarfmalzemeleri ('$e1','$e2')";
+		  $result = pg_query($query); break;
+
+case Uretim :
+echo "ID giriniz ";
+		$e1 = readline("Command: ");
+		echo "Madde tipi giriniz ";
+		$e2 = readline("Command: ");
+		  $query ="INSERT INTO Hesap Uretim ('$e1','$e2')";
+		  $result = pg_query($query); break;
+
+case Odul :
+		  echo "ID giriniz ";
+		  $e1 = readline("Command: ");
+		  echo "Aciklama giriniz ";
+		  $e2 = readline("Command: ");
+		  echo "Parayi giriniz ";
+		  $e3 = readline("Command: ");
+		  echo "Seviye giriniz ";
+		  $e4 = readline("Command: ");
+		  $query ="INSERT INTO Hesap Karakter ('$e1','$e2','$e3','$e4')";
+		  $result = pg_query($query); break;
+
+    break;/*--case2--*/
+/*--------------------------------------------------------------------------------------------------------------------------------------------------------------------*/	
 case 3:
     echo "Tablo ismi giriniz ";
 	 $tablo3 = readline("Command: ");
-    break;
+	  Switch($tablo3){
+		case Hesap :
+		echo "ID giriniz ";
+		  $s = readline("Command: ");
+		$sql ='DELETE FROM Hesap WHERE ID' =.$s;
+
+            $result = pg_query($sql);
+            $cmdtuples = pg_affected_rows($result);
+            echo $cmdtuples . " record affected.\n";
+            if (!$result) {
+                $errormessage = pg_last_error();
+                echo "Error with query: " . $errormessage;
+                exit();
+            }break;
+			
+		case Karakter :
+		echo "ID giriniz ";
+		  $s = readline("Command: ");
+		$sql ='DELETE FROM Karakter WHERE ID' =.$s;
+
+            $result = pg_query($sql);
+            $cmdtuples = pg_affected_rows($result);
+            echo $cmdtuples . " record affected.\n";
+            if (!$result) {
+                $errormessage = pg_last_error();
+                echo "Error with query: " . $errormessage;
+                exit();
+            }break;
+		
+        case Yetenek_agaci :
+		echo "Karakter_ID giriniz ";
+		  $s = readline("Command: ");
+		$sql ='DELETE FROM Yetenek_agaci WHERE Karakter_ID' =.$s;
+
+            $result = pg_query($sql);
+            $cmdtuples = pg_affected_rows($result);
+            echo $cmdtuples . " record affected.\n";
+            if (!$result) {
+                $errormessage = pg_last_error();
+                echo "Error with query: " . $errormessage;
+                exit();
+            }break;
+		
+		case Odul :
+		echo "ID giriniz ";
+		  $s = readline("Command: ");
+		$sql ='DELETE FROM Odul WHERE ID' =.$s;
+
+            $result = pg_query($sql);
+            $cmdtuples = pg_affected_rows($result);
+            echo $cmdtuples . " record affected.\n";
+            if (!$result) {
+                $errormessage = pg_last_error();
+                echo "Error with query: " . $errormessage;
+                exit();
+            }break;
+		  
+		case Yetenekler :
+		echo "ID giriniz ";
+		  $s = readline("Command: ");
+		$sql ='DELETE FROM Yetenekler WHERE ID' =.$s;
+
+            $result = pg_query($sql);
+            $cmdtuples = pg_affected_rows($result);
+            echo $cmdtuples . " record affected.\n";
+            if (!$result) {
+                $errormessage = pg_last_error();
+                echo "Error with query: " . $errormessage;
+                exit();
+            }break;
+		  
+		case Envanter :
+		echo "ID giriniz ";
+		  $s = readline("Command: ");
+		$sql ='DELETE FROM Envanter WHERE Karakter_ID' =.$s;
+
+            $result = pg_query($sql);
+            $cmdtuples = pg_affected_rows($result);
+            echo $cmdtuples . " record affected.\n";
+            if (!$result) {
+                $errormessage = pg_last_error();
+                echo "Error with query: " . $errormessage;
+                exit();
+            }break;
+			
+		case Gorev :
+		echo "ID giriniz ";
+		  $s = readline("Command: ");
+		$sql ='DELETE FROM Gorev WHERE ID' =.$s;
+
+            $result = pg_query($sql);
+            $cmdtuples = pg_affected_rows($result);
+            echo $cmdtuples . " record affected.\n";
+            if (!$result) {
+                $errormessage = pg_last_error();
+                echo "Error with query: " . $errormessage;
+                exit();
+            }break;
+			
+		case Non_Playable_Character : 
+		echo "ID giriniz ";
+		  $s = readline("Command: ");
+		$sql ='DELETE FROM Non_Playable_Character WHERE ID' =.$s;
+
+            $result = pg_query($sql);
+            $cmdtuples = pg_affected_rows($result);
+            echo $cmdtuples . " record affected.\n";
+            if (!$result) {
+                $errormessage = pg_last_error();
+                echo "Error with query: " . $errormessage;
+                exit();
+            }break;
+			
+		case Puan_Tablosu :
+		echo "ID giriniz ";
+		  $s = readline("Command: ");
+		$sql ='DELETE FROM Non_Playable_Character WHERE Karakter_ID' =.$s;
+
+            $result = pg_query($sql);
+            $cmdtuples = pg_affected_rows($result);
+            echo $cmdtuples . " record affected.\n";
+            if (!$result) {
+                $errormessage = pg_last_error();
+                echo "Error with query: " . $errormessage;
+                exit();
+            }break;
+		
+		case Klan :
+		echo "ID giriniz ";
+		  $s = readline("Command: ");
+		$sql ='DELETE FROM Klan WHERE ID' =.$s;
+
+            $result = pg_query($sql);
+            $cmdtuples = pg_affected_rows($result);
+            echo $cmdtuples . " record affected.\n";
+            if (!$result) {
+                $errormessage = pg_last_error();
+                echo "Error with query: " . $errormessage;
+                exit();
+            }break;
+		
+		case Klan_uyeleri :
+		echo "ID giriniz ";
+		  $s = readline("Command: ");
+		$sql ='DELETE FROM Klan WHERE Karakter_ID' =.$s;
+
+            $result = pg_query($sql);
+            $cmdtuples = pg_affected_rows($result);
+            echo $cmdtuples . " record affected.\n";
+            if (!$result) {
+                $errormessage = pg_last_error();
+                echo "Error with query: " . $errormessage;
+                exit();
+            }break;
+		
+		case Nesneler :
+		echo "ID giriniz ";
+		  $s = readline("Command: ");
+		$sql ='DELETE FROM Klan Nesneler ID' =.$s;
+
+            $result = pg_query($sql);
+            $cmdtuples = pg_affected_rows($result);
+            echo $cmdtuples . " record affected.\n";
+            if (!$result) {
+                $errormessage = pg_last_error();
+                echo "Error with query: " . $errormessage;
+                exit();
+            }break;
+
+case Silahlar :
+echo "ID giriniz ";
+		  $s = readline("Command: ");
+		$sql ='DELETE FROM Klan Silahlar ID' =.$s;
+
+            $result = pg_query($sql);
+            $cmdtuples = pg_affected_rows($result);
+            echo $cmdtuples . " record affected.\n";
+            if (!$result) {
+                $errormessage = pg_last_error();
+                echo "Error with query: " . $errormessage;
+                exit();
+            }break;
+
+case Zirhlar :
+echo "ID giriniz ";
+		  $s = readline("Command: ");
+		$sql ='DELETE FROM Klan Zirhlar ID' =.$s;
+
+            $result = pg_query($sql);
+            $cmdtuples = pg_affected_rows($result);
+            echo $cmdtuples . " record affected.\n";
+            if (!$result) {
+                $errormessage = pg_last_error();
+                echo "Error with query: " . $errormessage;
+                exit();
+            }break;
+
+case Sarfmalzemeleri :
+echo "ID giriniz ";
+		  $s = readline("Command: ");
+		$sql ='DELETE FROM Klan Sarfmalzemeleri ID' =.$s;
+
+            $result = pg_query($sql);
+            $cmdtuples = pg_affected_rows($result);
+            echo $cmdtuples . " record affected.\n";
+            if (!$result) {
+                $errormessage = pg_last_error();
+                echo "Error with query: " . $errormessage;
+                exit();
+            }break;
+
+case Uretim :
+echo "ID giriniz ";
+		  $s = readline("Command: ");
+		$sql ='DELETE FROM Klan Uretim ID' =.$s;
+
+            $result = pg_query($sql);
+            $cmdtuples = pg_affected_rows($result);
+            echo $cmdtuples . " record affected.\n";
+            if (!$result) {
+                $errormessage = pg_last_error();
+                echo "Error with query: " . $errormessage;
+                exit();
+            }break;
+    break;/*--case3--*/
+	/*--------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 case 4:
     echo "Tablo ismi giriniz ";
      $tablo4 = readline("Command: ");
-    break;
+    break;/*--case4--*/
 default:
     echo "Yeniden";
 	break;
-}  
 }
-
-
+}
 
 // Free resultset
 pg_free_result($result);
